@@ -104,30 +104,6 @@ or if you are running ansible core version
 anssible-playbook run -m stdout playbook_apache.yml
 ```
 
-## 📁 Role Structure
-
-The role follows the standard Ansible role directory structure:
-
-```
-Install_Apache/
-├── defaults/
-│   └── main.yml
-├── files/
-├── handlers/
-│   └── main.yml
-├── meta/
-│   └── main.yml
-├── tasks/
-│   └── main.yml
-├── tests/
-│   └── test.yml
-├── vars/
-│   └── main.yml
-└── .travis.yml
-```
-
-
-
 ## 👤 Author
 
 This was originally Authored by **Ahmed Orabi** but Modified and Maintained by **Omar Salem**. Feel free to contribute or raise issues for improvements.
