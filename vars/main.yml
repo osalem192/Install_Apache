@@ -1,0 +1,7 @@
+---
+# vars file for apache_install_role
+pkg: httpd
+svc: httpd
+port: 88
+src: /etc/httpd/conf/httpd.conf
+dst: /etc/httpd/conf/httpd.conf.bak

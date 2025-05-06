@@ -1,0 +1,40 @@
+---
+# tasks file for apache_install_role
+
+- name: Install Apache
+  dnf:
+    name: "{{ pkg }}"
+    state: present
+
+- name: Backup {{ pkg }}.conf
+  copy:
+    src: "{{ src }}"
+    dest: "{{ dst }}"
+    remote_src: yes
+
+- name: Change Apache listen port to {{ port }}
+  lineinfile:
+    path: "{{ src }}"
+    regexp: '^Listen '
+    line: "Listen {{ port }}"
+  notify: restart apache
+  
+- name: Allow Apache to use port {{ port }} in SELinux
+  command: semanage port -m -t http_port_t -p tcp {{ port }}
+  args:
+    warn: false
+  ignore_errors: true
+
+- name: Ensure firewalld allows port {{ port }}
+  firewalld:
+    port: "{{ port }}/tcp"
+    permanent: yes
+    state: enabled
+    immediate: yes
+    
+- name: Upload index.html page
+  copy:
+    src: ./index.html
+    dest: /var/www/html/index.html
+  notify: restart apache
+  

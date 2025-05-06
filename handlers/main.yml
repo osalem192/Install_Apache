@@ -1,0 +1,7 @@
+---
+# tasks file for apache_install_role
+
+- name: Restart Apache
+  service:
+    name: "{{ svc }}"
+    state: restarted
