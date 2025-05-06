@@ -15,6 +15,7 @@ Install_Apache/
 ├── defaults/
 │   └── main.yml
 ├── files/
+|    └── index.html
 ├── handlers/
 │   └── main.yml
 ├── meta/
