@@ -9,7 +9,7 @@
 - name: Backup {{ pkg }}.conf
   copy:
     src: "{{ src }}"
-    dest: "{{ dst }}"
+    dest: "{{ dst }}.bak"
     remote_src: yes
 
 - name: Change Apache listen port to {{ port }}

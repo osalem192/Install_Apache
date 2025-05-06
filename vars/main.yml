@@ -4,4 +4,4 @@ pkg: httpd
 svc: httpd
 port: 88
 src: /etc/httpd/conf/httpd.conf
-dst: /etc/httpd/conf/httpd.conf.bak
+dst: /var/tmp/httpd.conf
