@@ -1,38 +1,133 @@
-Role Name
-=========
+# Install Apache Role for Ansible
 
-A brief description of the role goes here.
+An Ansible role for automating the installation and basic configuration of the Apache HTTP Server (httpd) on RedHat Linux systems.
 
-Requirements
-------------
+## 📆 Overview
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role simplifies the deployment of Apache by managing installation, service configuration, and default settings. It is designed to be modular and easily integrated into broader infrastructure automation workflows.
 
-Role Variables
---------------
+## 📁 Role Structure
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The role follows the standard Ansible role directory structure:
 
-Dependencies
-------------
+```
+Install_Apache/
+├── defaults/
+│   └── main.yml
+├── files/
+├── handlers/
+│   └── main.yml
+├── meta/
+│   └── main.yml
+├── tasks/
+│   └── main.yml
+├── tests/
+│   └── test.yml
+├── vars/
+│   └── main.yml
+└── .travis.yml
+```
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
-Example Playbook
-----------------
+## 🔧 Role Variables
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+The role includes variables defined in `vars/main.yml`. You can override these variables as needed:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+# var/main.yml
+pkg: httpd  # Apache name in redhat
+svc: httpd  # Apache Service name in RedHat
+port: 88 # Apache listen port
+```
 
-License
--------
+## How to use this role
+1. **you need to create:**
 
-BSD
+    - ansible playbook
+    - inventory
+    - ansible config file
 
-Author Information
-------------------
+2. **you need to add role path in the ansible.cfg file**
+3. **you need to add role path in your playbook file**
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+### example on inventory
+
+``` yaml
+[ws]
+workstation
+
+[webservers]
+servera
+serverb
+
+[dbservers]
+serverc
+serverd
+
+[nti:children]
+webservers
+dbservers
+```
+
+### example for ansible.cfg file
+
+``` yaml
+[defaults]
+inventory = ~/inventory
+remote_user = root
+roles_path = /home/student/roles:/usr/share/ansible/roles:/etc/ansible/roles
+```
+
+## Example Playbook
+
+Here's how to use the role in a playbook:
+
+```yaml
+- name: Install and configure Apache
+  hosts: webservers
+  become: yes
+  roles:
+    - Install_Apache
+```
+
+## How to run the PlayBook
+you should run the following command in the playbook directory:
+
+if you are using the navigator version
+``` bash
+anssible-navigator run -m stdout playbook_apache.yml
+```
+
+or if you are running ansible core version
+
+```bash
+anssible-playbook run -m stdout playbook_apache.yml
+```
+
+## 📁 Role Structure
+
+The role follows the standard Ansible role directory structure:
+
+```
+Install_Apache/
+├── defaults/
+│   └── main.yml
+├── files/
+├── handlers/
+│   └── main.yml
+├── meta/
+│   └── main.yml
+├── tasks/
+│   └── main.yml
+├── tests/
+│   └── test.yml
+├── vars/
+│   └── main.yml
+└── .travis.yml
+```
+
+
+
+## 👤 Author
+
+This was originally Authored by **Ahmed Orabi** but Modified and Maintained by **Omar Salem**. Feel free to contribute or raise issues for improvements.
